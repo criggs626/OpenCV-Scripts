@@ -81,13 +81,16 @@ def getLines(img,hsv):
         cv2.line(img,(lastRight[0],lastRight[1]),(lastRight[2],lastRight[3]),(255,0,255),3)
     return img
 
-# Code for running with images
-img = cv2.imread("src/solidWhiteCurve.png")
-roi=cv2.cvtColor(selectRegion(img.copy(),img.copy()),cv2.COLOR_BGR2HSV)
-new=getLines(img.copy(),roi)
-cv2.imshow('frame',new)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+def main():
+    # Code for running with images
+    img = cv2.imread("src/solidWhiteCurve.png")
+    roi=cv2.cvtColor(selectRegion(img.copy(),img.copy()),cv2.COLOR_BGR2HSV)
+    new=getLines(img.copy(),roi)
+    cv2.imshow('frame',new)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+main()
 #ROI for images
 #bottomLeft=[120,img.shape[0]]
 #bottomRight=[880,img.shape[0]]
