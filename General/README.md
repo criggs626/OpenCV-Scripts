@@ -25,14 +25,14 @@ Doing the steps above will give you an output similar to below.
 #### Original
 ![Original IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/original.png)
 #### Red Mask
-![Red Mask IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/red.jpg)
+![Red Mask IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/red.png)
 #### Green Mask
-![Green Mask IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/green.jpg)
+![Green Mask IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/green.png)
 #### Blue Mask
-![Blue Mask IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/blue.jpg)
+![Blue Mask IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/blue.png)
 #### Blurred
-![Blur IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/blur.jpg)
+![Blur IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/blur.png)
 #### Gray scaled`
-![Gray IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/gray.jpg)
+![Gray IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/gray.png)
 #### Canny Edge
-![Canny Edge IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/edges.jpg)
+![Canny Edge IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/edges.png)
