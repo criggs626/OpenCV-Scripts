@@ -23,7 +23,7 @@ Simply use left and right arrow to navigate, and press any key to exit.
 ## Output
 Doing the steps above will give you an output similar to below.
 #### Original
-![Original IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/original.jpg)
+![Original IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/original.png)
 #### Red Mask
 ![Red Mask IMG](https://raw.github.com/criggs626/OpenCV-Scripts/master/General/output/red.jpg)
 #### Green Mask
