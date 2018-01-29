@@ -5,8 +5,10 @@ lastLeft=[]
 lastRight=[]
 
 #Function for selecting region of knterest
-def selectRegion(original,img):
+def selectRegion(image):
 	#Bounds of region defined by x and y
+    original=image.copy()
+    img=image.copy()
     bottomLeft=[120,img.shape[0]]
     bottomRight=[880,img.shape[0]]
     topLeft=[415,340]
@@ -62,6 +64,10 @@ def getLines(img,hsv):
     rightLines=[]
     leftWeights=[]
     rightWeights=[]
+    if len(lines)==0:
+        cv2.line(img,(lastLeft[0],lastLeft[1]),(lastLeft[2],lastLeft[3]),(255,0,255),3)
+        cv2.line(img,(lastRight[0],lastRight[1]),(lastRight[2],lastRight[3]),(255,0,255),3)
+        return img
     for line in lines:
         for x1,y1,x2,y2 in line:
         	#If the line is straight go to next line
@@ -107,7 +113,7 @@ def main():
     if "mp4" not in filePath:
         # Code for running with images
         img = cv2.imread(filePath)
-        roi=cv2.cvtColor(selectRegion(img.copy(),img.copy()),cv2.COLOR_BGR2HSV)
+        roi=cv2.cvtColor(selectRegion(img),cv2.COLOR_BGR2HSV)
         new=getLines(img.copy(),roi)
         cv2.imshow('frame',new)
         cv2.waitKey(0)
@@ -117,7 +123,7 @@ def main():
         cap=cv2.VideoCapture(filePath)
         while(cap.isOpened()):
             ret,img=cap.read()
-            roi=cv2.cvtColor(selectRegion(img.copy(),img.copy()),cv2.COLOR_BGR2HSV)
+            roi=cv2.cvtColor(selectRegion(img),cv2.COLOR_BGR2HSV)
             new=getLines(img.copy(),roi)
             cv2.imshow("Frame",new)
             if cv2.waitKey(20) & 0xFF == ord('q'):
