@@ -103,13 +103,27 @@ def getLines(img,hsv):
     return img
 
 def main():
-    # Code for running with images
-    img = cv2.imread("src/solidWhiteCurve.png")
-    roi=cv2.cvtColor(selectRegion(img.copy(),img.copy()),cv2.COLOR_BGR2HSV)
-    new=getLines(img.copy(),roi)
-    cv2.imshow('frame',new)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    filePath=raw_input("Input the filePath:")
+    if "mp4" not in filePath:
+        # Code for running with images
+        img = cv2.imread(filePath)
+        roi=cv2.cvtColor(selectRegion(img.copy(),img.copy()),cv2.COLOR_BGR2HSV)
+        new=getLines(img.copy(),roi)
+        cv2.imshow('frame',new)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+    elif "mp4" in filePath:
+        # Code for running with a video
+        cap=cv2.VideoCapture(filePath)
+        while(cap.isOpened()):
+            ret,img=cap.read()
+            roi=cv2.cvtColor(selectRegion(img.copy(),img.copy()),cv2.COLOR_BGR2HSV)
+            new=getLines(img.copy(),roi)
+            cv2.imshow("Frame",new)
+            if cv2.waitKey(20) & 0xFF == ord('q'):
+                break
+    else:
+        print("Unsuported file type")
 
 main()
 #ROI for images
@@ -117,20 +131,9 @@ main()
 #bottomRight=[880,img.shape[0]]
 #topLeft=[415,340]
 #topRight=[550,340]
-'''
-# Code for running with a video
-#img = cv2.imread("images/solidYellowLeft.jpg")
-cap=cv2.VideoCapture("images/challenge.mp4")
-while(cap.isOpened()):
-    ret,img=cap.read()
-    roi=cv2.cvtColor(selectRegion(img.copy(),img.copy()),cv2.COLOR_BGR2HSV)
-    new=getLines(img.copy(),roi)
-    cv2.imshow("Frame",new)
-    if cv2.waitKey(20) & 0xFF == ord('q'):
-        break
+
 #ROI for challenge.mp4
 #bottomLeft=[175,img.shape[0]]
 #bottomRight=[1180,img.shape[0]]
 #topLeft=[600,429]
 #topRight=[745,445]
-'''
