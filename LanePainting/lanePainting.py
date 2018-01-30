@@ -5,16 +5,12 @@ lastLeft=[]
 lastRight=[]
 
 #Function for selecting region of knterest
-def selectRegion(image):
+def selectRegion(image,region):
 	#Bounds of region defined by x and y
     original=image.copy()
     img=image.copy()
-    bottomLeft=[120,img.shape[0]]
-    bottomRight=[880,img.shape[0]]
-    topLeft=[415,340]
-    topRight=[550,340]
     #Create shape using bounds
-    vertices = np.array([[bottomLeft, topLeft, topRight, bottomRight]], dtype=np.int32)
+    vertices = np.array([[region[0], region[2], region[3], region[1]]], dtype=np.int32)
     #Fill shape with color then mask to return roi
     cv2.fillPoly(img,vertices,255)
     mask=cv2.inRange(img,np.array([254,0,0]),np.array([255,0,0]))
@@ -64,10 +60,6 @@ def getLines(img,hsv):
     rightLines=[]
     leftWeights=[]
     rightWeights=[]
-    if len(lines)==0:
-        cv2.line(img,(lastLeft[0],lastLeft[1]),(lastLeft[2],lastLeft[3]),(255,0,255),3)
-        cv2.line(img,(lastRight[0],lastRight[1]),(lastRight[2],lastRight[3]),(255,0,255),3)
-        return img
     for line in lines:
         for x1,y1,x2,y2 in line:
         	#If the line is straight go to next line
@@ -113,33 +105,34 @@ def main():
     if "mp4" not in filePath:
         # Code for running with images
         img = cv2.imread(filePath)
-        roi=cv2.cvtColor(selectRegion(img),cv2.COLOR_BGR2HSV)
+        dimensions=[[120,img.shape[0]],[880,img.shape[0]],[415,340],[550,340]]
+        roi=cv2.cvtColor(selectRegion(img,dimensions),cv2.COLOR_BGR2HSV)
         new=getLines(img.copy(),roi)
         cv2.imshow('frame',new)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     elif "mp4" in filePath:
         # Code for running with a video
-        cap=cv2.VideoCapture(filePath)
-        while(cap.isOpened()):
-            ret,img=cap.read()
-            roi=cv2.cvtColor(selectRegion(img),cv2.COLOR_BGR2HSV)
-            new=getLines(img.copy(),roi)
-            cv2.imshow("Frame",new)
-            if cv2.waitKey(20) & 0xFF == ord('q'):
-                break
-    else:
-        print("Unsuported file type")
+        if "challenge" in filePath:
+            cap=cv2.VideoCapture(filePath)
+            while(cap.isOpened()):
+                ret,img=cap.read()
+                dimensions=[[175,img.shape[0]],[1180,img.shape[0]],[600,429],[745,445]]
+                roi=cv2.cvtColor(selectRegion(img,dimensions),cv2.COLOR_BGR2HSV)
+                new=getLines(img.copy(),roi)
+                cv2.imshow("Frame",roi)
+                if cv2.waitKey(20) & 0xFF == ord('q'):
+                    break
+        else:
+            cap=cv2.VideoCapture(filePath)
+            while(cap.isOpened()):
+                ret,img=cap.read()
+                dimensions=[[120,img.shape[0]],[880,img.shape[0]],[415,340],[550,340]]
+                roi=cv2.cvtColor(selectRegion(img,dimensions),cv2.COLOR_BGR2HSV)
+                new=getLines(img.copy(),roi)
+                cv2.imshow("Frame",new)
+                if cv2.waitKey(20) & 0xFF == ord('q'):
+                    break
+
 
 main()
-#ROI for images
-#bottomLeft=[120,img.shape[0]]
-#bottomRight=[880,img.shape[0]]
-#topLeft=[415,340]
-#topRight=[550,340]
-
-#ROI for challenge.mp4
-#bottomLeft=[175,img.shape[0]]
-#bottomRight=[1180,img.shape[0]]
-#topLeft=[600,429]
-#topRight=[745,445]
