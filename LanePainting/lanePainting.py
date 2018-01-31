@@ -109,30 +109,35 @@ def main():
         roi=cv2.cvtColor(selectRegion(img,dimensions),cv2.COLOR_BGR2HSV)
         new=getLines(img.copy(),roi)
         cv2.imshow('frame',new)
+        cv2.imwrite("output.png",new)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     elif "mp4" in filePath:
         # Code for running with a video
+        cap=cv2.VideoCapture(filePath)
+        out = cv2.VideoWriter('output.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (int(cap.get(3)),int(cap.get(4))))
         if "challenge" in filePath:
-            cap=cv2.VideoCapture(filePath)
             while(cap.isOpened()):
                 ret,img=cap.read()
                 dimensions=[[175,img.shape[0]],[1180,img.shape[0]],[600,429],[745,445]]
                 roi=cv2.cvtColor(selectRegion(img,dimensions),cv2.COLOR_BGR2HSV)
                 new=getLines(img.copy(),roi)
                 cv2.imshow("Frame",new)
+                out.write(new)
                 if cv2.waitKey(20) & 0xFF == ord('q'):
                     break
         else:
-            cap=cv2.VideoCapture(filePath)
             while(cap.isOpened()):
                 ret,img=cap.read()
                 dimensions=[[120,img.shape[0]],[880,img.shape[0]],[415,340],[550,340]]
                 roi=cv2.cvtColor(selectRegion(img,dimensions),cv2.COLOR_BGR2HSV)
                 new=getLines(img.copy(),roi)
                 cv2.imshow("Frame",new)
+                out.write(new)
                 if cv2.waitKey(20) & 0xFF == ord('q'):
                     break
+        out.release()
+        cap.release()
 
 
 main()
