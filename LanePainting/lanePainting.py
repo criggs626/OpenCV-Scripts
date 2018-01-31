@@ -120,7 +120,7 @@ def main():
                 dimensions=[[175,img.shape[0]],[1180,img.shape[0]],[600,429],[745,445]]
                 roi=cv2.cvtColor(selectRegion(img,dimensions),cv2.COLOR_BGR2HSV)
                 new=getLines(img.copy(),roi)
-                cv2.imshow("Frame",roi)
+                cv2.imshow("Frame",new)
                 if cv2.waitKey(20) & 0xFF == ord('q'):
                     break
         else:
