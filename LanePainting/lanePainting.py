@@ -60,6 +60,12 @@ def getLines(img,hsv):
     rightLines=[]
     leftWeights=[]
     rightWeights=[]
+    try:
+        length=len(lines)
+    except Exception as e:
+        cv2.line(img,(lastRight[0],lastRight[1]),(lastRight[2],lastRight[3]),(255,0,255),3)
+        cv2.line(img,(lastLeft[0],lastLeft[1]),(lastLeft[2],lastLeft[3]),(255,0,255),3)
+        return img 
     for line in lines:
         for x1,y1,x2,y2 in line:
         	#If the line is straight go to next line
